@@ -219,4 +219,4 @@ class Suitor():
             sortedPreferedSuiteds = sorted(preferedSuiteds.items(),
                                            key=lambda x: x[1])
 
-        return sortedPreferedSuiteds
+       return sortedPreferedSuiteds[0:self.capacity]
