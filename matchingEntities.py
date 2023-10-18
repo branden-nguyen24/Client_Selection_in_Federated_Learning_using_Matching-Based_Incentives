@@ -1,4 +1,5 @@
 class Suited():
+
     def __init__(self, clientId=None, preferenceList=None,
                  assignedSuitor=None, suitorsList=None):
         """
@@ -219,4 +220,26 @@ class Suitor():
             sortedPreferedSuiteds = sorted(preferedSuiteds.items(),
                                            key=lambda x: x[1])
 
-       return sortedPreferedSuiteds[0:self.capacity]
+        return sortedPreferedSuiteds[0:self.capacity]
+
+
+def match(suitorList: list[Suitor], suitedList: list[Suited]):
+    continueMatching = True
+
+    while continueMatching:
+        for server in suitorList:
+            if server.notFull():
+                selected_client = max(server.preferenceList,
+                                      key=server.preferenceList.get)
+                server.preferenceList.pop(selected_client)
+                selected_client.addSuitor(server)
+        for client in suitedList:
+            clientPref = client.checkPreference
+            client.assign(clientPref)
+        
+        continueMatching = False
+        for server in suitorList:
+            if server.notFull():
+                continueMatching = True
+
+        
